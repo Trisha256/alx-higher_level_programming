@@ -2,5 +2,12 @@
 """Defines a Rectangle class."""
 
 class Rectangle:
-    """Represents a Rectangle."""
+    """Represents a Rectangle.
+
+    Attributes:
+        None
+
+        Methods:
+            None
+            """
     pass
