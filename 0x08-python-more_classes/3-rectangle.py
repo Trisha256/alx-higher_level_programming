@@ -93,12 +93,3 @@ class Rectangle:
         rectangle_str = "#" * self.__width
         rectangle_str = (rectangle_str + "\n") * self.__height
         return rectangle_str
-
-    def __repr__(self):
-        """
-        Return a string representation of a rectangle.
-
-        Returns:
-            str: Representation of a rectangle.
-        """
-        return f"Rectangle({self.__width}, {self.__height})"
