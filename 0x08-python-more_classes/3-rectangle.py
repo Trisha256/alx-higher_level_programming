@@ -90,6 +90,6 @@ class Rectangle:
         """
         if self.__width == 0 or self.__height == 0:
             return ""
-        rectangle_str = "#" * self.__width
-        rectangle_str = (rectangle_str + "\n") * self.__height
-        return rectangle_str
+        rectangle = "#" * self.__width + "\n"
+        rectangle *=  self.__height
+        return rectangle[:-1]
