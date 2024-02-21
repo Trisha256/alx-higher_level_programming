@@ -21,8 +21,8 @@ def list_division(my_list_1, my_list_2, list_length):
             val_2 = my_list_2[i]
 
             result = val_1 / val_2
-            if not isinstance(val_1, (int, float)) or not isinstance(val_2, 
-                    (int, float)):
+            if not isinstance(val_1, (int, float)) or not isinstance(val_2,
+(int, float)):
                 print("wrong type")
                 if val_2 == 0:
                     raise ZeroDivisionError("division by 0")
