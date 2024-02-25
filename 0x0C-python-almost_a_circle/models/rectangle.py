@@ -96,7 +96,7 @@ class Rectangle(Base):
             [print("#", end="") for w in range(self.width)]
             print("")
     
-    def update(self, *args, kwargs):
+    def update(self, *args, **kwargs):
         """Update the rectangle.
         
         Args:
