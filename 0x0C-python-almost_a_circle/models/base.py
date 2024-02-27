@@ -15,22 +15,11 @@ class Base:
     """
     __nb_objects = 0
 
-
     def __init__(self, id=None):
         """Initiate a new base.
 
         Args:
             id(int): identity of the new base.
-        """
-        if id is not None:
-            self.id = id
-        else:
-            Base. __nb_objects += 1
-            self.id =  Base. __nb_objects
-            """Initialize a new Base.
-
-        Args:
-            id (int): The identity of the new Base.
         """
         if id is not None:
             self.id = id
@@ -195,6 +184,3 @@ class Base:
             turt.hideturtle()
 
         turtle.exitonclick()
-
-
-

@@ -79,26 +79,26 @@ class Rectangle(Base):
         if value < 0:
             raise ValueError("y must be >= 0")
         self.__y = value
-    
+
     def area(self):
         """return the area of the rectangle."""
         return self.width * self. height
-    
+
     def display(self):
         """prints the rectangle using the "#" character."""
         if self.width == 0 or self.height == 0:
             print("")
             return
-        
-            [print("") for y in range (self.y)]
-        for h in range (self.height):
+
+            [print("") for y in range(self.y)]
+        for h in range(self.height):
             [print("", end="") for x in range(self.x)]
             [print("#", end="") for w in range(self.width)]
             print("")
-    
+
     def update(self, *args, **kwargs):
         """Update the rectangle.
-        
+
         Args:
             *args(int): represents the new atrribute values.
             1st arg - represents id attribute.
@@ -156,11 +156,4 @@ class Rectangle(Base):
     def __str__(self):
         """Returns the print() and str() representation of a circle."""
         return "[Rectangle] ({}) ({}/{} - {}/{})".format(self.id, self.x,
-                                                     self.y, self.width,
-                                                     self.height)
-        
-
-
-
-
-
+                self.y, self.width, self.height)

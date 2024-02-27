@@ -22,11 +22,13 @@ class TestBase_instantiation(unittest.TestCase):
     """Unittests for testing instantiation of the Base class."""
 
     def test_no_arg(self):
+        Base.__nb_objects = 0  # Reset the __nb_objects attribute
         b1 = Base()
         b2 = Base()
         self.assertEqual(b1.id, b2.id - 1)
 
     def test_three_bases(self):
+        Base.__nb_objects = 0  # Reset the __nb_objects attribute
         b1 = Base()
         b2 = Base()
         b3 = Base()
@@ -41,6 +43,7 @@ class TestBase_instantiation(unittest.TestCase):
         self.assertEqual(12, Base(12).id)
 
     def test_nb_instances_after_unique_id(self):
+        Base.__nb_objects = 0  # Reset the __nb_objects attribute
         b1 = Base()
         b2 = Base(12)
         b3 = Base()
@@ -290,13 +293,13 @@ class TestBase_create(unittest.TestCase):
         r1 = Rectangle(3, 5, 1, 2, 7)
         r1_dictionary = r1.to_dictionary()
         r2 = Rectangle.create(**r1_dictionary)
-        self.assertEqual("[Rectangle] (7) 1/2 - 3/5", str(r1))
+        self.assertEqual("[Rectangle] (7) (1/2 - 3/5)", str(r1))
 
     def test_create_rectangle_new(self):
         r1 = Rectangle(3, 5, 1, 2, 7)
         r1_dictionary = r1.to_dictionary()
         r2 = Rectangle.create(**r1_dictionary)
-        self.assertEqual("[Rectangle] (7) 1/2 - 3/5", str(r2))
+        self.assertEqual("[Rectangle] (7) (1/2 - 3/5)", str(r2))
 
     def test_create_rectangle_is(self):
         r1 = Rectangle(3, 5, 1, 2, 7)
