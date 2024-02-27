@@ -155,6 +155,6 @@ class Rectangle(Base):
 
     def __str__(self):
         """Returns the print() and str() representation of a circle."""
-        return "[Rectangle] ({}) ({}/{} - {}/{})".format(self.id, self.x, se
-                                                         lf.y, self.width,
+        return "[Rectangle] ({}) ({}/{} - {}/{})".format(self.id, self.x,
+                                                         self.y, self.width,
                                                          self.height)
