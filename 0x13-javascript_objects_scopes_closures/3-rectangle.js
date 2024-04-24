@@ -1,27 +1,28 @@
 #!/usr/bin/node
 class Rectangle
 {
-  constructor(w, h)
+	constructor (w, h)
 	{
 		if (w <= 0 || h <= 0 || !Number.isInteger(w) || !Number.isInteger(h))
-	  {
-		  return {};
-	  }
+		{
+			return {};
+		}
+
 		this.width = w;
     		this.height = h;
 	}
 
-  print()
+  print ()
 	{
 		if (Object.keys(this).length === 0)
-	  {
-      		return;
-	  }
-    const row = 'X'.repeat(this.width);
-    for (let i = 0; i < this.height; i++)
-	  {
-		  console.log(row);
-	  }
+		{
+			return;
+		}
+		const row = 'X'.repeat(this.width);
+		for (let i = 0; i < this.height; i++)
+		{
+			console.log(row);
+		}
 	}
 }
 
