@@ -1,3 +1,1 @@
-Python programming
-
-0x08. Python - More Classes and Objects
+0x05. Python - Exceptions
