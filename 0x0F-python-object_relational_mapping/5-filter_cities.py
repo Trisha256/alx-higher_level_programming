@@ -16,12 +16,13 @@ if __name__ == "__main__":
     # Create a cursor object to execute queries
     cursor = db.cursor()
 
-    # Create the SQL query using the user input
-    query = "SELECT * FROM states WHERE name LIKE '{}' ORDER BY id ASC".format
-    (state_name)
+    # Create the SQL query with parameterized query
+    query = "SELECT cities.id, cities.name, states.name FROM cities"
+    \ "JOIN states ON cities.state_id = states.id WHERE states.name =
+    %s ORDER BY cities.id ASC"
 
-    # Execute the query
-    cursor.execute(query)
+    # Execute the query with the state name as a parameter
+    cursor.execute(query, (state_name,))
 
     # Fetch all the rows returned by the query
     rows = cursor.fetchall()
@@ -30,6 +31,6 @@ if __name__ == "__main__":
     for row in rows:
         print(row)
 
-        # Close the cursor and database connection
-        cursor.close()
-        db.close()
+    # Close the cursor and database connection
+    cursor.close()
+    db.close()

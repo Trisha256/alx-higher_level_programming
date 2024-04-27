@@ -1,25 +1,31 @@
 #!/usr/bin/python3
-import MySQLdb
 import sys
+import MySQLdb
+
 
 if __name__ == "__main__":
+    # arguments
     username = sys.argv[1]
     password = sys.argv[2]
     database = sys.argv[3]
 
+    # Connect the SQL server
     db = MySQLdb.connect
     (host="localhost", port=3306, user=username, passwd=password, db=database)
 
-    # Create a cursor object to interact with the database
+    # Cursor Object to execute queries
     cursor = db.cursor()
 
-    # Execute the SQL query to fetch all states
-    cursor.execute("SELECT * FROM states ORDER BY id ASC")
+    # SQL Query
+    query = "SELECT * FROM cities ORDER BY id ASC"
+
+    # Execute the query
+    cursor.execute(query)
 
     # Fetch all the rows returned by the query
     rows = cursor.fetchall()
 
-    # Print the states in the desired format
+    # Display the results
     for row in rows:
         print(row)
 
