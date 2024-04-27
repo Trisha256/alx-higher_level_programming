@@ -1,9 +1,13 @@
 #!/usr/bin/python3
+"""a Python file similar to model_state.py named model_city.py that
+contains the class definition of a City
+"""
 import sys
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from model_city import Base, City
 from model_state import State
+
 
 if __name__ == "__main__":
     # Get command-line arguments

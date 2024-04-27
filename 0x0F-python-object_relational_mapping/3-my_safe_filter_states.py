@@ -1,6 +1,11 @@
 #!/usr/bin/python3
+"""a script should take 4 arguments: mysql username, mysql
+password, database name and state name searched
+one that is safe from MySQL injections
+"""
 import sys
 import MySQLdb
+
 
 if __name__ == "__main__":
     # Get command-line arguments
