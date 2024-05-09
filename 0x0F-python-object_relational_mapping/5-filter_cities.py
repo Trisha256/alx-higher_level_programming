@@ -1,41 +1,40 @@
 #!/usr/bin/python3
 """
-a script that takes in the name of a state as an argument and lists
-all cities of that state, using the database hbtn_0e_4_usa
+This script  takes in the name of a state
+as an argument and lists all cities of that
+state, using the database `hbtn_0e_4_usa`.
 """
-import sys
-import MySQLdb
 
+import MySQLdb as db
+from sys import argv
 
 if __name__ == "__main__":
-    # Get command-line arguments
-    username = sys.argv[1]
-    password = sys.argv[2]
-    database = sys.argv[3]
-    state_name = sys.argv[4]
+    """
+    Access to the database and get the cities
+    from the database.
+    """
 
-    # Connect to MySQL server
-    db = MySQLdb.connect
-    (host="localhost", port=3306, user=username, passwd=password, db=database)
+    db_connect = db.connect(host="localhost", port=3306,
+                            user=argv[1], passwd=argv[2], db=argv[3])
 
-    # Create a cursor object to execute queries
-    cursor = db.cursor()
+    with db_connect.cursor() as db_cursor:
+        db_cursor.execute("""
+            SELECT
+                cities.id, cities.name
+            FROM
+                cities
+            JOIN
+                states
+            ON
+                cities.state_id = states.id
+            WHERE
+                states.name LIKE BINARY %(state_name)s
+            ORDER BY
+                cities.id ASC
+        """, {
+            'state_name': argv[4]
+        })
+        rows_selected = db_cursor.fetchall()
 
-    # Create the SQL query with parameterized query
-    query = "SELECT cities.id, cities.name, states.name FROM cities"
-    \ "JOIN states ON cities.state_id = states.id WHERE states.name =
-    %s ORDER BY cities.id ASC"
-
-    # Execute the query with the state name as a parameter
-    cursor.execute(query, (state_name,))
-
-    # Fetch all the rows returned by the query
-    rows = cursor.fetchall()
-
-    # Display the results
-    for row in rows:
-        print(row)
-
-    # Close the cursor and database connection
-    cursor.close()
-    db.close()
+    if rows_selected is not None:
+        print(", ".join([row[1] for row in rows_selected]))

@@ -1,33 +1,38 @@
 #!/usr/bin/python3
-""" a script that lists all states with a name starting with N (upper N)
-from the database hbtn_0e_0_usa:
+"""
+Lists all states with a name starting with N (upper N) from the database
+hbtn_0e_0_usa sorted in ascending order by states.id
 """
 import MySQLdb
 import sys
 
 
 if __name__ == "__main__":
-    username = sys.argv[1]
-    password = sys.argv[2]
-    database = sys.argv[3]
 
-    # Connect to MySQL Server
-    db = MySQLdb.connect
-    (host="localhost", port=3306, user=username, passwd=password, db=database)
+    mysql_username = sys.argv[1]
+    mysql_password = sys.argv[2]
+    db_name = sys.argv[3]
 
-    # Create a cursor object to interact with the database
-    cursor = db.cursor()
+    try:
+        conn = MySQLdb.connect(
+            host="localhost",
+            port=3306,
+            user=mysql_username,
+            passwd=mysql_password,
+            db=db_name,
+            charset="utf8"
+        )
+    except MySQLdb.Error as e:
+        print("Error connecting to database: {}".format(e))
+        sys.exit(1)
 
-    # Execute the SQL Query to fetch the states starting with N
-    cursor.execute("SELECT * FROM states WHERE name LIKE 'N%' ORDER BY id ASC")
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM states WHERE name LIKE BINARY 'N%' \
+                ORDER BY states.id ASC")
+    rows = cur.fetchall()
 
-    # Fetch all rows returned by the Query
-    rows = cursor.fetchall()
-
-    # print the states in desired format
     for row in rows:
-        print(rows)
+        print(row)
 
-    # close the cursor and database connection
-    cursor.close()
-    db.close()
+    cur.close()
+    conn.close()

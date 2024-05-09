@@ -1,31 +1,36 @@
 #!/usr/bin/python3
 """
-a script that lists all states from the database hbtn_0e_0_usa
+Lists all states from the database hbtn_0e_0_usa sorted in ascending order by
+states.id
 """
 import MySQLdb
 import sys
 
 
 if __name__ == "__main__":
-    username = sys.argv[1]
-    password = sys.argv[2]
-    database = sys.argv[3]
+    mysql_username = sys.argv[1]
+    mysql_password = sys.argv[2]
+    db_name = sys.argv[3]
 
-    db = MySQLdb.connect
-    (host="localhost", port=3306, user=username, passwd=password, db=database)
+    try:
+        conn = MySQLdb.connect(
+            host="localhost",
+            port=3306,
+            user=mysql_username,
+            passwd=mysql_password,
+            db=db_name,
+            charset="utf8"
+        )
+    except MySQLdb.Error as e:
+        print("Error connecting to database: {}".format(e))
+        sys.exit(1)
 
-    cursor = db.cursor()
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM states ORDER BY id ASC")
+    rows = cur.fetchall()
 
-    # Execute the SQL query to fetch all states
-    cursor.execute("SELECT * FROM states ORDER BY id ASC")
-
-    # Fetch all the rows returned by the query
-    rows = cursor.fetchall()
-
-    # Print the states in the desired format
     for row in rows:
         print(row)
 
-    # Close the cursor and database connection
-    cursor.close()
-    db.close()
+    cur.close()
+    conn.close()

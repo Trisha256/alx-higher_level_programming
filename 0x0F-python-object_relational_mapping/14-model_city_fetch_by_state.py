@@ -1,39 +1,33 @@
 #!/usr/bin/python3
-"""a Python file similar to model_state.py named model_city.py that
-contains the class definition of a City
 """
-import sys
+This script prints all City objects
+from the database `hbtn_0e_14_usa`.
+"""
+
+from sys import argv
+from model_state import State, Base
+from model_city import City
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from model_city import Base, City
-from model_state import State
-
 
 if __name__ == "__main__":
-    # Get command-line arguments
-    username = sys.argv[1]
-    password = sys.argv[2]
-    database = sys.argv[3]
+    """
+    Access to the database and get the cities
+    from the database.
+    """
 
-    # Create the engine to connect to the MySQL server
-    engine = create_engine
-    (f"mysql://{username}:{password}@localhost:3306/{database}")
+    db_url = "mysql+mysqldb://{}:{}@localhost:3306/{}".format(
+        argv[1], argv[2], argv[3])
 
-    # Bind the engine to the Base class
-    Base.metadata.bind = engine
-
-    # Create a session to interact with the database
+    engine = create_engine(db_url)
     Session = sessionmaker(bind=engine)
+
     session = Session()
 
-    # Query all City objects from the database, sorted by city id
-    cities = session.query(City).order_by(City.id).all()
+    results = session.query(City, State).join(State)
 
-    # Print the cities in the required format
-    for city in cities:
-        state_name = session.query(State.name).filter
-        (State.id == city.state_id).scalar()
-        print(f"{state_name}: ({city.id}) {city.name}")
+    for city, state in results.all():
+        print("{}: ({}) {}".format(state.name, city.id, city.name))
 
-    # Close the session
+    session.commit()
     session.close()
